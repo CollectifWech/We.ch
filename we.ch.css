@@ -1,0 +1,36 @@
+* {
+	margin: 0;
+	padding: 0;
+	outline: none;
+}
+
+body {
+	position: relative;
+	background: black;
+	font-family: "Times", serif;
+	font-size: 6.5rem;
+	color: white;
+	padding: 1.5rem 2rem;
+	line-height: 1.3;
+	background-image: ;
+	background-size: cover;
+}
+
+a {
+	color: white;
+	text-decoration: none;
+}
+
+a:hover {
+	font-style: italic;
+/*	cursor: url(curseur2.png), auto;*/
+	cursor: pointer;
+}
+
+#nom-projet {
+	font-style: italic;
+}
+
+.hidden {
+	opacity: 0;
+}

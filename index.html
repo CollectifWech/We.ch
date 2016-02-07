@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>WE.CH</title>
+	<link rel="stylesheet" href="we.ch.css">
+	<link rel="icon" type="image/png" href="favicon.png" />
+</head>
+<body>
+	<a href="index.html">we.ch</a> &mdash; collectif <span contenteditable="true">graphique</span> &mdash; <a href="contact.html">contact</a> &mdash; <a href="credits.html">crédits</a> &mdash; projets&thinsp;: 
+	<a class="projets" id="hiphop" data-numero="1" href="http://www.hiphopwetrust.fr/">01.</a> 
+	<a class="projets" id="philo" data-numero="2" href="01/">02.</a> 
+	<a class="projets"id="howmy" data-numero="3" href="02/">03.</a>
+	<a class="projets"id="savate" data-numero="4" href="savate">04.</a>
+	<a class="projets"id="musicforviewprt" data-numero="5" href="musicforviewport">05.</a>
+	<p id="nom-projet" class="hidden"></p>
+</body>
+</html>
+
+<script>
+	var projets = ["hip hop we trust", "philosophie d'ascenceur", "howmycomputersees.me", "savate", "music for viewport"];
+	var projetsBackgroundImages = ["hiphopwetrust-background.jpg", "philosophie-background.jpg", "howmy-background.jpg", "savate-background.jpg", "musicforviewport-background.jpg"];
+
+	window.onload = function() {
+		var liensProjets = document.getElementsByClassName('projets');
+		var nomProjet = document.getElementById('nom-projet');
+
+		for (var i=0; i < liensProjets.length; i++) {
+
+			liensProjets[i].addEventListener('mouseover', function() {
+				var projetId = this.dataset.numero;
+				nomProjet.innerHTML = projets[projetId-1];
+				nomProjet.className = "";
+				document.body.style.backgroundImage = 'url(images/'+projetsBackgroundImages[projetId-1]+')';
+
+			});
+			liensProjets[i].addEventListener('mouseout', function() {
+				nomProjet.className = "hidden";
+				document.body.style.backgroundImage = '';
+			});
+		}
+	}
+
+</script>

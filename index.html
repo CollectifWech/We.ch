@@ -6,39 +6,51 @@
 	<link rel="stylesheet" href="we.ch.css">
 	<link rel="icon" type="image/png" href="favicon.png" />
 </head>
-<body>
-	<a href="index.html">we.ch</a> &mdash; collectif <span contenteditable="true">graphique</span> &mdash; <a href="contact.html">contact</a> &mdash; <a href="credits.html">crédits</a> &mdash; projets&thinsp;: 
-	<a class="projets" id="hiphop" data-numero="1" href="http://www.hiphopwetrust.fr/">01.</a> 
-	<a class="projets" id="philo" data-numero="2" href="01/">02.</a> 
-	<a class="projets"id="howmy" data-numero="3" href="02/">03.</a>
-	<a class="projets"id="savate" data-numero="4" href="savate">04.</a>
-	<a class="projets"id="musicforviewprt" data-numero="5" href="musicforviewport">05.</a>
-	<p id="nom-projet" class="hidden"></p>
+<body id="wech">
+	<header>
+		<a href="index.html">we.ch</a> — collectif <span contenteditable="true">graphique</span> — <a href="contact.html">contact</a> — <form id="recherche"><input id="recherche-input" v-model="recherche" type="text"></input><span>?</span></form>
+	</header>
+
+	<table class="projets">
+		<tr v-for='projet in projets | filterBy recherche'>
+			<td class="projet-numero">{{ projet.numero }}</td>
+			<td class="projet-nom"><a href="{{ projet.url }}">{{ projet.abreviation }}</a></td>
+			<td class="projet-date">{{ projet.date }}</td>
+		</tr>
+	</table>
+
+	<div id="ile" v-show="!resultatRecherche.length">
+		span
+	</div>
+
+	<footer>
+		<a href="credits.html">crédits</a> — <a href="https://www.facebook.com/collectifwech/">facebook</a> — <a href="https://twitter.com/CollectifWech">twitter</a> — <a href="https://github.com/CollectifWech">github</a>
+	</footer>
+		<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.17/vue.min.js"></script>
+		<script type="text/javascript" src="autosize-input.min.js"></script>
+	<script type="text/javascript">
+		var wech = new Vue({
+		  el: '#wech',
+		  data: {
+		  	projets: [ 
+		  		{ numero: 07, nom: "cartes de visite", abreviation: "/CARTESDEVISITE", date: 2016, url: "cartesdevisite" },
+		  		{ numero: 06, nom: "xanax", abreviation: "/XANAX", date: 2016, url: "xanax" },
+		  		{ numero: 05, nom: "music for viewport", abreviation: "/MUSICFORVIEWPORT", date: 2016, url: "musicforviewport" },
+		  		{ numero: 04, nom: "savate", abreviation: "/SAVATE", date: 2015, url: "savate" },
+		  		{ numero: 03, nom: "philosophie d'ascenceur", abreviation: "/PHILOSOPHIEDASCENCEUR", date: 2015, url: "philosophiedascenseur" },
+		  		{ numero: 02, nom: 'hip hop we trust', abreviation: 'HIPHOPWETRUST.FR', date: 2015, url: "http://www.hiphopwetrust.fr" },
+		  		{ numero: 01, nom: 'how my computer sees me', abreviation: 'HOWMYCOMPUTERSEES.ME', date: '2014†', url: "http://www.howmycomputersees.me" }
+		  	],
+		  	recherche: ""
+		  },
+		  computed: {
+			  resultatRecherche: function () {
+			      return this.$eval('projets | filterBy recherche')
+			  }
+			}
+		});
+
+   		autosizeInput(document.querySelector('#recherche-input'), { minWidth: true });
+	</script>
 </body>
 </html>
-
-<script>
-	var projets = ["hip hop we trust", "philosophie d'ascenceur", "howmycomputersees.me", "savate", "music for viewport"];
-	var projetsBackgroundImages = ["hiphopwetrust-background.jpg", "philosophie-background.jpg", "howmy-background.jpg", "savate-background.jpg", "musicforviewport-background.jpg"];
-
-	window.onload = function() {
-		var liensProjets = document.getElementsByClassName('projets');
-		var nomProjet = document.getElementById('nom-projet');
-
-		for (var i=0; i < liensProjets.length; i++) {
-
-			liensProjets[i].addEventListener('mouseover', function() {
-				var projetId = this.dataset.numero;
-				nomProjet.innerHTML = projets[projetId-1];
-				nomProjet.className = "";
-				document.body.style.backgroundImage = 'url(images/'+projetsBackgroundImages[projetId-1]+')';
-
-			});
-			liensProjets[i].addEventListener('mouseout', function() {
-				nomProjet.className = "hidden";
-				document.body.style.backgroundImage = '';
-			});
-		}
-	}
-
-</script>
